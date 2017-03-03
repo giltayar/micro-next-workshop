@@ -12,6 +12,7 @@
   "license": "Unlicense",
   "dependencies": {
     "micro": "^7.0.6",
+    "microrouter": "^2.0.0",
     "pify": "^2.3.0"
   }
 }

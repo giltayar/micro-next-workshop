@@ -20,7 +20,6 @@ module.exports = (dir) => ({
   },
 
   async list() {
-    console.log('db', await readDb(dir))
     return (await readDb(dir)).sort((left, right) => left.last.localeCompare(right.last))
   }
 })
