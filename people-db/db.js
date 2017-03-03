@@ -1,12 +1,14 @@
-import pify from 'pify'
-import fs from 'fs'
-import path from 'path'
+const pify = require('pify')
+const fs = require('fs')
+const path = require('path')
 
 let globalId = 0
 
-export default (dir) => ({
+module.exports = (dir) => ({
   async add(person) {
-    await writeDb(await readDb(dir).concat({...person, ...{id: ++globalId}}))
+    await writeDb(await readDb(dir).concat(Object.assign(person, {id: ++globalId})))
+
+    return person
   },
 
   async remove(personId) {
@@ -17,8 +19,9 @@ export default (dir) => ({
     await writeDb(await readDb(dir).filter(p => p.id === personId).concat(person))
   },
 
-  async list(person) {
-    return sort(await readDb(dir), (left, right) => left.last.localeCompare(right.last))
+  async list() {
+    console.log('db', await readDb(dir))
+    return (await readDb(dir)).sort((left, right) => left.last.localeCompare(right.last))
   }
 })
 

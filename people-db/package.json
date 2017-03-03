@@ -2,11 +2,16 @@
   "name": "micro-next-workshop-people-db",
   "version": "1.0.0",
   "description": "",
-  "main": "db.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "micro --port ${PORT:-3000}"
   },
   "keywords": [],
   "author": "Gil Tayar <gil@tayar.org>",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "dependencies": {
+    "micro": "^7.0.6",
+    "pify": "^2.3.0"
+  }
 }
