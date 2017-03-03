@@ -28,10 +28,10 @@ async function readDb(dir) {
   }
   catch (e) {
     if (e.code === 'ENOENT') {
-      return [];
+      return []
     }
     else {
-      throw e;
+      throw e
     }
   }
 }

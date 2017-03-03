@@ -1,5 +1,5 @@
 {
-  "name": "micro-next-workshop-chat-client",
+  "name": "micro-next-workshop-people-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,8 @@
     "start": "next start"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Gil Tayar <gil@tayar.org>",
+  "license": "Unlicense",
   "dependencies": {
     "pify": "^2.3.0"
   }
