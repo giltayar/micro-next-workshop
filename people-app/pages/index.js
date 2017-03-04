@@ -10,10 +10,14 @@ export default class IndexPage extends React.Component {
     return { peopleDbHost, people: await (await fetch(`http://${peopleDbHost}/people`)).json()}
   }
 
-  componentWillMount() {}
+  constructor(props) {
+    super(props)
+    this.state = props
+  }
 
   render() {
-    const {people} = this.props
+    const {people} = this.state
+
     return (
       <div className="container">
         <script dangerouslySetInnerHTML={{__html: `window.peopleDbHost = ${JSON.stringify(this.props.peopleDbHost)}`}}>
@@ -26,6 +30,9 @@ export default class IndexPage extends React.Component {
             max-width: 50rem;
             margin: 10px;
           }
+          .delete-button {
+            float: right;
+          }
         `}
         </style>
         <div className="panel panel-default">
@@ -35,6 +42,10 @@ export default class IndexPage extends React.Component {
               <Link href={`/person?id=${person.id}`} key={person.id}>
                 <a className="list-group-item">
                   <div>
+                    <button className="btn btn-xs delete-button"
+                      onClick={(ev) => this.deletePerson(ev, person.id)}>
+                      delete
+                    </button>
                     <h4 className="list-group-item-heading">{person.first} {person.last}</h4>
                     <p className="list-group-item-text">age {person.age}</p>
                   </div>
@@ -47,5 +58,14 @@ export default class IndexPage extends React.Component {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" />
       </div>
     )
+  }
+
+  async deletePerson(ev, id) {
+    ev.stopPropagation()
+    await fetch(`http://${this.state.peopleDbHost}/people/${id}`, {
+      method: 'DELETE'
+    })
+
+    this.setState({people: this.state.people.filter(p => p.id !== id)})
   }
 }
