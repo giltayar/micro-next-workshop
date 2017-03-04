@@ -4,17 +4,19 @@ const {expect} = require('chai')
 chai.use(require('chai-subset'))
 const fetch = require('node-fetch')
 const listen = require('test-listen')
+const micro = require('micro')
 const app = require('..')
 
 describe('db app', function () {
+  let service
   let url
-
   before(async () => {
-    url = await listen(app)
+    service = micro(app)
+    url = await listen(service)
   })
   after(() => {
-    if (app) {
-      app.close()
+    if (service) {
+      service.close()
     }
   })
 

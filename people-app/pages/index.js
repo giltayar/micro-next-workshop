@@ -2,7 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import fetch from 'isomorphic-fetch'
-import socketIo from 'socket.io-client'
 
 export default class IndexPage extends React.Component {
   static async getInitialProps({res}) {
@@ -14,10 +13,6 @@ export default class IndexPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = props
-  }
-
-  componentWillMount() {
-    this.setState({socketIo: socketIo(`http://${this.state.peopleDbHost}`)})
   }
 
   render() {
