@@ -4,18 +4,19 @@ import Link from 'next/link'
 import fetch from 'isomorphic-fetch'
 
 export default class IndexPage extends React.Component {
-  static async getInitialProps() {
-    return {
-      people: [
-        {first: 'Gil', last: 'Tayar', age: 45, id: '1'},
-        {first: 'Shlomo', last: 'Buchbut', age: 77, id: '2'}
-      ]}
+  static async getInitialProps({res}) {
+    const peopleDbHost = res ? process.env.PEOPLE_DB : window.peopleDbHost
+
+    return { people: await (await fetch(`http://${peopleDbHost}/people`)).json()}
   }
 
   render() {
     const {people} = this.props
     return (
       <div className="container">
+        <script>
+          window.peopleDbHost = peopleDbHost
+        </script>
         <Head>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         </Head>
@@ -40,6 +41,7 @@ export default class IndexPage extends React.Component {
               </Link>
             ))
           }</ul>
+          <div className="panel-footer"><Link href="/person"><button>Add</button></Link></div>
         </div>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" />
       </div>

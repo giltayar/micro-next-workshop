@@ -1,5 +1,9 @@
 {
   "rules": {
     "react/prop-types": "off"
+  },
+  "env": {
+    "node": true,
+    "browser": true
   }
 }
