@@ -32,8 +32,8 @@ export default class IndexPage extends React.Component {
           <div className="panel-heading"><h1 className="panel-title">People</h1></div>
           <ul className="list-group">{
             people.map(person => (
-              <Link href={`/person?id=${person.id}`}>
-                <a className="list-group-item" key={person.id}>
+              <Link href={`/person?id=${person.id}`} key={person.id}>
+                <a className="list-group-item">
                   <div>
                     <h4 className="list-group-item-heading">{person.first} {person.last}</h4>
                     <p className="list-group-item-text">age {person.age}</p>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-// import Router from 'next/router'
+import Router from 'next/router'
 import fetch from 'isomorphic-fetch'
 
 export default class PersonPage extends React.Component {
@@ -11,7 +11,7 @@ export default class PersonPage extends React.Component {
       return {peopleDbHost, first: '', last: '', age: ''}
     } else {
       return Object.assign({},
-        peopleDbHost,
+        {peopleDbHost},
         await (await fetch(`http://${peopleDbHost}/people/${query.id}`)).json())
     }
   }
@@ -26,6 +26,8 @@ export default class PersonPage extends React.Component {
 
     return (
       <div className="container">
+        <script dangerouslySetInnerHTML={{ __html: `window.peopleDbHost = ${JSON.stringify(this.props.peopleDbHost)}` }}>
+        </script>
         <Head>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
         </Head>
@@ -59,7 +61,9 @@ export default class PersonPage extends React.Component {
                 value={age}
                 onChange={(ev) => this.setState({age: parseInt(ev.target.value)})} />
             </div>
-            <button type="submit" className="btn btn-default" onClick={(ev) => this.handleSave(ev)}>Save</button>
+            <button type="submit" className="btn btn-default" onClick={(ev) => this.handleSave(ev)}>
+              {this.state.id ? 'Save' : 'Add'}
+            </button>
           </form>
         </div>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" />
@@ -68,12 +72,14 @@ export default class PersonPage extends React.Component {
   }
 
   async handleSave(ev) {
-    console.log(this.state)
     ev.preventDefault()
-    console.log('posted', await fetch(`http://${this.state.peopleDbHost}/people`, {
-      method: 'POST',
+    await fetch(`http://${this.state.peopleDbHost}/people`, {
+      method: this.state.id ? 'PUT' : 'POST',
       headers: {'content-type': 'application/json'},
-      body: JSON.stringify({first: this.state.first, last: this.state.last, age: this.state.age})
-    }))
+      body: JSON.stringify({id: this.state.id,
+        first: this.state.first, last: this.state.last, age: this.state.age})
+    })
+
+    Router.push('/')
   }
 }
