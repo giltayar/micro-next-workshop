@@ -1,22 +1,23 @@
 import React from 'react'
 import Head from 'next/head'
+// import Router from 'next/router'
 import fetch from 'isomorphic-fetch'
 
 export default class PersonPage extends React.Component {
   static async getInitialProps({res, query}) {
-    console.log('getting initial props')
     const peopleDbHost = res ? process.env.PEOPLE_DB : window.peopleDbHost
 
     if (!query.id) {
       return {peopleDbHost, first: '', last: '', age: ''}
     } else {
-      return {peopleDbHost, ...(await (await fetch(`http://${peopleDbHost}/people/${query.id}`)).json())}
+      return Object.assign({},
+        peopleDbHost,
+        await (await fetch(`http://${peopleDbHost}/people/${query.id}`)).json())
     }
   }
 
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = props
   }
 
@@ -56,9 +57,9 @@ export default class PersonPage extends React.Component {
               <input type="number"
                 className="form-control" id="age" placeholder="Age"
                 value={age}
-                onChange={(ev) => this.setSate({ age: parseInt(ev.target.value) })} />
+                onChange={(ev) => this.setState({age: parseInt(ev.target.value)})} />
             </div>
-            <button type="submit" className="btn btn-default" onClick={() => this.handleSave()}>Save</button>
+            <button type="submit" className="btn btn-default" onClick={(ev) => this.handleSave(ev)}>Save</button>
           </form>
         </div>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" />
@@ -66,7 +67,13 @@ export default class PersonPage extends React.Component {
     )
   }
 
-  handleSave() {
-    alert(JSON.stringify(this.state))
+  async handleSave(ev) {
+    console.log(this.state)
+    ev.preventDefault()
+    console.log('posted', await fetch(`http://${this.state.peopleDbHost}/people`, {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({first: this.state.first, last: this.state.last, age: this.state.age})
+    }))
   }
 }

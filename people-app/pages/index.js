@@ -7,15 +7,16 @@ export default class IndexPage extends React.Component {
   static async getInitialProps({res}) {
     const peopleDbHost = res ? process.env.PEOPLE_DB : window.peopleDbHost
 
-    return { people: await (await fetch(`http://${peopleDbHost}/people`)).json()}
+    return { peopleDbHost, people: await (await fetch(`http://${peopleDbHost}/people`)).json()}
   }
+
+  componentWillMount() {}
 
   render() {
     const {people} = this.props
     return (
       <div className="container">
-        <script>
-          window.peopleDbHost = peopleDbHost
+        <script dangerouslySetInnerHTML={{__html: `window.peopleDbHost = ${JSON.stringify(this.props.peopleDbHost)}`}}>
         </script>
         <Head>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />

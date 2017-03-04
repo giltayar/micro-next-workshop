@@ -13,6 +13,7 @@
   "license": "Unlicense",
   "dependencies": {
     "micro": "^7.0.6",
+    "micro-cors": "0.0.1",
     "micro-route": "^2.2.1",
     "pify": "^2.3.0"
   },

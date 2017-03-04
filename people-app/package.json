@@ -14,7 +14,9 @@
   "license": "Unlicense",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "next": "^1.2.3",
-    "pify": "^2.3.0"
+    "next": "^2.0.0-beta",
+    "pify": "^2.3.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }

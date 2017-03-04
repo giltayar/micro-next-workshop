@@ -6,8 +6,9 @@ let globalId = 0
 
 module.exports = (dir) => ({
   async add (person) {
+    console.log('adding person', person)
     await writeDb(dir, (await readDb(dir)).concat(Object.assign(person, {id: String(++globalId)})))
-
+    console.log('added person', person)
     return person
   },
 
