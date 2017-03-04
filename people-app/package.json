@@ -2,10 +2,9 @@
   "name": "micro-next-workshop-people-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "PEOPLE_DB=localhost:3001 next",
+    "start:dev": "PEOPLE_DB=http://localhost:3001 next",
     "build": "next build",
     "start": "next start"
   },

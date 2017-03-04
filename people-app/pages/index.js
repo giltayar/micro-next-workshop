@@ -5,9 +5,9 @@ import fetch from 'isomorphic-fetch'
 
 export default class IndexPage extends React.Component {
   static async getInitialProps({res}) {
-    const peopleDbHost = res ? process.env.PEOPLE_DB : window.peopleDbHost
+    const peopleDbUrl = res ? process.env.PEOPLE_DB : window.peopleDbUrl
 
-    return { peopleDbHost, people: await (await fetch(`http://${peopleDbHost}/people`)).json()}
+    return { peopleDbUrl, people: await (await fetch(`${peopleDbUrl}/people`)).json()}
   }
 
   constructor(props) {
@@ -20,7 +20,7 @@ export default class IndexPage extends React.Component {
 
     return (
       <div className="container">
-        <script dangerouslySetInnerHTML={{__html: `window.peopleDbHost = ${JSON.stringify(this.props.peopleDbHost)}`}}>
+        <script dangerouslySetInnerHTML={{ __html: `window.peopleDbUrl = ${JSON.stringify(this.props.peopleDbUrl)}`}}>
         </script>
         <Head>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
@@ -62,7 +62,7 @@ export default class IndexPage extends React.Component {
 
   async deletePerson(ev, id) {
     ev.stopPropagation()
-    await fetch(`http://${this.state.peopleDbHost}/people/${id}`, {
+    await fetch(`${this.state.peopleDbUrl}/people/${id}`, {
       method: 'DELETE'
     })
 

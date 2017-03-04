@@ -5,14 +5,14 @@ import fetch from 'isomorphic-fetch'
 
 export default class PersonPage extends React.Component {
   static async getInitialProps({res, query}) {
-    const peopleDbHost = res ? process.env.PEOPLE_DB : window.peopleDbHost
+    const peopleDbUrl = res ? process.env.PEOPLE_DB : window.peopleDbUrl
 
     if (!query.id) {
-      return {peopleDbHost, first: '', last: '', age: ''}
+      return {peopleDbUrl, first: '', last: '', age: ''}
     } else {
       return Object.assign({},
-        {peopleDbHost},
-        await (await fetch(`http://${peopleDbHost}/people/${query.id}`)).json())
+        {peopleDbUrl},
+        await (await fetch(`${peopleDbUrl}/people/${query.id}`)).json())
     }
   }
 
@@ -26,7 +26,7 @@ export default class PersonPage extends React.Component {
 
     return (
       <div className="container">
-        <script dangerouslySetInnerHTML={{ __html: `window.peopleDbHost = ${JSON.stringify(this.props.peopleDbHost)}` }}>
+        <script dangerouslySetInnerHTML={{ __html: `window.peopleDbUrl = ${JSON.stringify(this.props.peopleDbUrl)}` }}>
         </script>
         <Head>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossOrigin="anonymous" />
@@ -73,7 +73,7 @@ export default class PersonPage extends React.Component {
 
   async handleSave(ev) {
     ev.preventDefault()
-    await fetch(`http://${this.state.peopleDbHost}/people`, {
+    await fetch(`${this.state.peopleDbUrl}/people`, {
       method: this.state.id ? 'PUT' : 'POST',
       headers: {'content-type': 'application/json'},
       body: JSON.stringify({id: this.state.id,
