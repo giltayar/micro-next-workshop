@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default () => {
+export default function GoodbyePage () {
   return <div>Goodbye world</div>
 }

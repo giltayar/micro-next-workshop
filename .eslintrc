@@ -1,6 +1,15 @@
 {
-  "extends": "standard",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "spaced-comment": 0
+  },
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true
   }
 }
