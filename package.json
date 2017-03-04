@@ -1,0 +1,26 @@
+{
+  "name": "micro-next-workshop",
+  "version": "1.0.0",
+  "description": "In this workshop, we learn how to build a complete web application architecture based on Node.JS. We will create microservices for JSON endpoints with micro, a lightweight framework for async HTTP micro services. on top of that we will also use socket.io to provide real time data updates. And we will tie them all together by creating a Universal JavaScript app, using next.js, for server-rendered JavaScript web apps, built on top of React, Webpack and Babel.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giltayar/micro-next-workshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/giltayar/micro-next-workshop/issues"
+  },
+  "homepage": "https://github.com/giltayar/micro-next-workshop#readme",
+  "devDependencies": {
+    "eslint": "^3.17.0",
+    "eslint-config-standard": "^7.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1"
+  }
+}

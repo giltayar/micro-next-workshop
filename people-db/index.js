@@ -1,7 +1,7 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-const {json, send} = require('micro')
+const {json} = require('micro')
 const dispatch = require('micro-route/dispatch')
 const db = require('./db')
 
