@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "micro --port ${PORT:-3001}",
-    "start:watch": "roodles -v 1 --exec 'node_modules/.bin/micro' --process-args='--port 3001'"
+    "start": "node ."
   },
   "keywords": [],
   "author": "Gil Tayar <gil@tayar.org>",
@@ -15,7 +14,8 @@
     "micro": "^7.0.6",
     "micro-cors": "0.0.1",
     "micro-route": "^2.2.1",
-    "pify": "^2.3.0"
+    "pify": "^2.3.0",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -23,7 +23,6 @@
     "mocha": "^3.2.0",
     "node-fetch": "^1.6.3",
     "nodemon": "^1.11.0",
-    "roodles": "0.0.1017",
     "test-listen": "^1.0.1",
     "watch": "^1.0.2"
   }
