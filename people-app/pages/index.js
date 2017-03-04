@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import Router from 'next/dist/lib/router'
 import fetch from 'isomorphic-fetch'
 
 export default class IndexPage extends React.Component {
@@ -16,7 +15,7 @@ export default class IndexPage extends React.Component {
   render() {
     const {people} = this.props
     return (
-      <div class="container">
+      <div className="container">
         <Head>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         </Head>
